@@ -15,7 +15,7 @@ It is designed for integration into **Self-Driving Labs (SDLs)**, enabling **dat
 ## 🧠 Key Highlights  
 
 - 🔍 **Spectral Featurization:**  
-  **Genetic Algorithm** is used to adaptively select important spectral regions and use Area Under the Curve as Features  
+  **Genetic Algorithm** is used to adaptively select important spectral regions and use area under the curve (AUC) as Features  
 
 - 🧩 **Interpretability:**  
   Domain-knowledge-driven feature expansion and **SHAP-based feature selection** retain physically meaningful descriptors.  
@@ -29,18 +29,32 @@ It is designed for integration into **Self-Driving Labs (SDLs)**, enabling **dat
 
 ---
 
-**Data Set - Experimental Data from Aram Amassian Group from North Carolina State University**
+### 🧪 **Data Set — Experimental Data from the Amassian Group (North Carolina State University)**  
 
-  Processing conditions: solvent concentration and annealing temperature
+- 🧫 **Processing Conditions:**  
+  Variation in *solvent concentration* and *annealing temperature* across experiments.  
 
-  Spectra types: pre-anneal UV–Vis, post-anneal UV–Vis, post-dope UV–Vis–NIR
+- 🌈 **Spectroscopic Measurements:**  
+  Includes three spectral types —  
+  **Pre-anneal UV–Vis**, **Post-anneal UV–Vis**, and **Post-dope UV–Vis–NIR** spectra.  
 
-  Dataset size: 128 samples
+- 📊 **Dataset Size:**  
+  A total of **128 doped conjugated polymer samples**, each with paired spectral and conductivity measurements.  
 
-## 📂 Repository Structure  
+---
+
+### 🗂️ **Project Structure**
+
+- **Code/**
+  - `main_final_QSPR_models.ipynb` — 💡 Main Jupyter notebook containing the complete QSPR modeling workflow  
+  - `helper.py` — 🧰 Utility functions for data preprocessing and analysis  
+  - `generate_adaptive_boundaries_optimization.py` — 🧬 Genetic Algorithm for adaptive spectral boundary optimization  
+  - `find_correct_clusters_and_do_ks_test.py` — 📊 Train/test data clustering, KS-tests, and statistical validation  
+
+- **Data/**
+  - `spring24_solvtemp_jpm.csv` — 📁 Main experimental dataset (solvent concentration and annealing temperature)  
+  - `[experiment folders]/` — 🧪 Individual experiment spectral data files  
 
 
-**Project Structure**
-
-├── Code/ │ ├── main_final_QSPR_models.ipynb # Main notebook with QSPR models │ ├── helper.py # Helper functions for data processing │ ├── generate_adaptive_boundaries_optimization.py # Genetic algorithm for boundary optimization │ └── find_correct_clusters_and_do_ks_test.py # Train/test splitting and statistical tests ├── Data/ │ ├── spring24_solvtemp_jpm.csv # Main dataset │ └── [experiment folders]/ # Individual experiment spectral data └── 
+---
 
