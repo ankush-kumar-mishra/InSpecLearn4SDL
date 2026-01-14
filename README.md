@@ -15,7 +15,7 @@ It is designed for integration into **Self-Driving Labs (SDLs)**, enabling **dat
 ## 🧠 Key Highlights  
 
 - 🔍 **Spectral Featurization:**  
-  **Genetic Algorithm** is used to adaptively select important spectral regions and use area under the curve (AUC) as Features  
+  **Genetic Algorithm** is used to adaptively select important spectral regions and use the area under the curve (AUC) as features  
 
 - 🧩 **Interpretability:**  
   Domain-knowledge-driven feature expansion and **SHAP-based feature selection** retain physically meaningful descriptors.  
