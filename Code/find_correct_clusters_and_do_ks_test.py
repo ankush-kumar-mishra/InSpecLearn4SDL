@@ -46,11 +46,15 @@ def generate_train_test_indices(num_clusters, normalized_input_df, random_state=
 
     test_indices = np.array(test_indices)
     train_indices = np.setdiff1d(np.arange(len(normalized_input_df)), test_indices)
+    num_val = int(len(test_indices)*0.5)
+    rng = np.random.RandomState(random_state +20)
+    rng.shuffle(test_indices)
 
-    return train_indices, test_indices
+    final_test_indices = test_indices[:num_val]
+    val_indices = test_indices[num_val:]
+    return train_indices, val_indices, final_test_indices
 
-
-def plot_kde_train_test(train_indices, test_indices, df):
+def plot_kde_train_test(train_indices, val_indices, test_indices, df):
 
     columns = ['CB', 'DCB', 'TOL', 'annealing_temperature', 'conductivity']
     x_label_columns = ['% CB', '% DCB', '% TOL', 'Annealing Temperature (°C)', 'Conductivity(S/cm)']
@@ -67,20 +71,25 @@ def plot_kde_train_test(train_indices, test_indices, df):
     for i, column in enumerate(columns):
         ax = axes[i]
         train_data = df_input[column].iloc[train_indices]
+        val_data = df_input[column].iloc[val_indices]
         test_data = df_input[column].iloc[test_indices]
 
         # Create the KDE estimators for train and test
         kde_train = gaussian_kde(train_data)
+        kde_val = gaussian_kde(val_data)
         kde_test = gaussian_kde(test_data)
         x_range = np.linspace(min(df_input[column]), max(df_input[column]), 1000)
         train_y = kde_train(x_range)
+        val_y = kde_val(x_range)
         test_y = kde_test(x_range)
 
         # Clip the y-values to remove negative densities
         train_y = np.clip(train_y, 0, None)
+        val_y = np.clip(val_y, 0, None)
         test_y = np.clip(test_y, 0, None)
 
-        ax.fill_between(x_range, train_y, color='blue', alpha=0.5)
+        ax.fill_between(x_range, train_y, color='black', alpha=0.5)
+        ax.fill_between(x_range, val_y, color='blue', alpha=0.5)
         ax.fill_between(x_range, test_y, color='red', alpha=0.5)
         ax.set_xlabel(x_label_columns[i], fontsize=24)
         ax.set_ylabel('Density', fontsize=24)
@@ -91,7 +100,8 @@ def plot_kde_train_test(train_indices, test_indices, df):
     # Sixth subplot for the shared legend
     axes[5].axis('off')
     legend_handles = [
-        Patch(color='blue', alpha=0.5, label='Train'),
+        Patch(color='black', alpha=0.5, label='Train'),
+        Patch(color='blue', alpha=0.5, label='Val'),
         Patch(color='red', alpha=0.5, label='Test')
     ]
     axes[5].legend(handles=legend_handles, loc='center', fontsize=24, frameon=False)
@@ -99,13 +109,19 @@ def plot_kde_train_test(train_indices, test_indices, df):
     plt.tight_layout()
     plt.show()
 
-def perform_ks_test(train_indices, test_indices, df):
-    ks_results = {}
+def perform_ks_test(train_indices, val_indices, test_indices, df):
+    ks_results_val = {}
+    ks_results_test = {}
     columns = ['CB', 'DCB', 'TOL', 'annealing_temperature', 'conductivity']
     
     for column in columns:
         train_data = df[column].iloc[train_indices]
+        val_data = df[column].iloc[val_indices]
         test_data = df[column].iloc[test_indices]
-        ks_statistic, p_value = ks_2samp(train_data, test_data)
-        ks_results[column] = {'KS Statistic': ks_statistic, 'p-value': p_value}
-    return ks_results
+        ks_statistic_val, p_value_val = ks_2samp(train_data, val_data)
+        ks_statistic_test, p_value_test = ks_2samp(train_data, test_data)
+        ks_results_val[column] = {'KS Statistic': ks_statistic_val, 'p-value': p_value_val}
+        ks_results_test[column] = {'KS Statistic': ks_statistic_test, 'p-value': p_value_test}
+    
+    return ks_results_val, ks_results_test
+
