@@ -49,7 +49,7 @@ It is designed for integration into **Self-Driving Labs (SDLs)**, enabling **dat
   - `main_final_QSPR_models.ipynb` — 💡 Main Jupyter notebook containing the complete QSPR modeling workflow  
   - `helper.py` — 🧰 Utility functions for data preprocessing and analysis  
   - `generate_adaptive_boundaries_optimization.py` — 🧬 Genetic Algorithm for adaptive spectral boundary optimization  
-  - `find_correct_clusters_and_do_ks_test.py` — 📊 Train/test data clustering, KS-tests, and statistical validation  
+  - `find_correct_clusters_and_do_ks_test.py` — 📊 Train/validation/test data clustering, KS-tests, and statistical validation  
 
 - **Data/**
   - `spring24_solvtemp_jpm.csv` — 📁 Main experimental dataset (solvent concentration and annealing temperature)  
