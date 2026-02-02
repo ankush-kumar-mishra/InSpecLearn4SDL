@@ -10,6 +10,19 @@
 The repository provides an **interpretable QSPR pipeline** that predicts the electrical conductivity of doped conjugated polymers using **optical spectra** and **processing parameters**.  
 It is designed for integration into **Self-Driving Labs (SDLs)**, enabling **data-efficient, automated, and interpretable** property prediction workflows.
 
+## 📦 Software & Library Versions
+
+The codebase was developed and tested using the following software environment.
+
+- **Python:** 3.8.19
+- **Numpy:** 1.24.3
+- **Pandas:** 2.0.2 
+- **scikit-learn:**  1.3.2 
+- **SHAP:** 0.44.1
+- **Scipy:** 1.9.1
+- **DEAP:** ≥ 1.4.3 
+- **Matplotlib:** 3.7.5
+
 ---
 
 ## 🧠 Key Highlights  
