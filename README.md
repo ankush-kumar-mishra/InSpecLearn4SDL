@@ -20,7 +20,7 @@ The codebase was developed and tested using the following software environment.
 - **scikit-learn:**  1.3.2 
 - **SHAP:** 0.44.1
 - **Scipy:** 1.9.1
-- **DEAP:** ≥ 1.4.3 
+- **DEAP:**  1.4.3 
 - **Matplotlib:** 3.7.5
 
 ---
